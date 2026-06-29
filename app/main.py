@@ -257,14 +257,18 @@ def get_templates():
 
 
 # ── Serve index.html with no-cache headers (fixes browser cache issues) ──────
-_FRONTEND_DIRS = ["public", "frontend"]
+# Use absolute paths so this works on Vercel (CWD is unpredictable in serverless)
+_PROJECT_ROOT = Path(__file__).resolve().parent.parent
+_FRONTEND_DIRS = [_PROJECT_ROOT / "public", _PROJECT_ROOT / "frontend"]
+
 
 def _find_index() -> Path | None:
     for d in _FRONTEND_DIRS:
-        p = Path(d) / "index.html"
+        p = d / "index.html"
         if p.exists():
             return p
     return None
+
 
 @app.get("/", response_class=HTMLResponse)
 async def serve_index():
@@ -286,12 +290,12 @@ async def serve_index():
 # Mount static assets — only if the directory actually exists (safe for Vercel)
 def _mount_static() -> None:
     for static_dir in _FRONTEND_DIRS:
-        p = Path(static_dir)
-        if p.exists() and any(p.iterdir()):
+        if static_dir.exists() and any(static_dir.iterdir()):
             try:
-                app.mount("/static", StaticFiles(directory=static_dir), name="frontend-assets")
+                app.mount("/static", StaticFiles(directory=str(static_dir)), name="frontend-assets")
             except Exception:
                 pass
             return
+
 
 _mount_static()
