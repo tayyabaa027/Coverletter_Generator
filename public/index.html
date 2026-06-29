@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate" />
+  <title>Cover Letter Pro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --r-sm: 8px;
+      --r-md: 12px;
+      --r-lg: 18px;
+      --ease: 0.25s ease;
+    }
+
+    /* ── Dark theme ── */
+    [data-theme="dark"] {
+      --bg:          #0a0b0f;
+      --panel:       #111318;
+      --card:        #16181f;
+      --card2:       #1c1f28;
+      --border:      #242736;
+      --border2:     #2d3044;
+      --txt:         #f0f1f8;
+      --txt2:        #7c82a8;
+      --txt3:        #454a65;
+      --accent:      #6366f1;
+      --accent-h:    #818cf8;
+      --accent-bg:   rgba(99,102,241,0.1);
+      --accent-ring: rgba(99,102,241,0.25);
+      --ok:          #10b981;
+      --ok-bg:       rgba(16,185,129,0.1);
+      --err:         #ef4444;
+      --err-bg:      rgba(239,68,68,0.1);
+      --sh:          0 1px 3px rgba(0,0,0,0.4), 0 4px 16px rgba(0,0,0,0.3);
+      --sh-lg:       0 8px 32px rgba(0,0,0,0.5);
+    }
+
+    /* ── Light theme ── */
+    [data-theme="light"] {
+      --bg:          #f5f6fa;
+      --panel:       #eceef5;
+      --card:        #ffffff;
+      --card2:       #f8f9fd;
+      --border:      #e2e4ef;
+      --border2:     #cdd0e3;
+      --txt:         #111827;
+      --txt2:        #6b7280;
+      --txt3:        #9ca3af;
+      --accent:      #4f46e5;
+      --accent-h:    #6366f1;
+      --accent-bg:   rgba(79,70,229,0.07);
+      --accent-ring: rgba(79,70,229,0.2);
+      --ok:          #059669;
+      --ok-bg:       rgba(5,150,105,0.08);
+      --err:         #dc2626;
+      --err-bg:      rgba(220,38,38,0.08);
+      --sh:          0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.06);
+      --sh-lg:       0 8px 32px rgba(0,0,0,0.1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
+      background: var(--bg);
+      color: var(--txt);
+      min-height: 100vh;
+      transition: background var(--ease), color var(--ease);
+    }
+
+    /* ── Header ── */
+    header {
+      position: sticky; top: 0; z-index: 100;
+      height: 60px;
+      padding: 0 28px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: var(--panel);
+      border-bottom: 1px solid var(--border);
+      transition: background var(--ease), border-color var(--ease);
+    }
+
+    .logo {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 15px; font-weight: 700; letter-spacing: -0.3px;
+      color: var(--txt);
+    }
+    .logo-icon {
+      width: 30px; height: 30px; border-radius: 8px;
+      background: var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.06);
+    }
+    .logo span { color: var(--accent); }
+
+    .header-right { display: flex; align-items: center; gap: 12px; }
+
+    /* Status badge */
+    .status {
+      display: flex; align-items: center; gap: 6px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 12px; font-weight: 500;
+      background: var(--card2);
+      border: 1px solid var(--border);
+      color: var(--txt2);
+      transition: all var(--ease);
+    }
+    .status-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--txt3);
+      transition: background 0.3s;
+    }
+    .status.ok { background: var(--ok-bg); border-color: rgba(16,185,129,0.2); color: var(--ok); }
+    .status.ok .status-dot { background: var(--ok); box-shadow: 0 0 6px var(--ok); }
+    .status.err { background: var(--err-bg); border-color: rgba(239,68,68,0.2); color: var(--err); }
+    .status.err .status-dot { background: var(--err); }
+
+    /* Toggle */
+    .toggle-wrap { display: flex; align-items: center; gap: 8px; }
+    .toggle-lbl { font-size: 12px; font-weight: 500; color: var(--txt2); }
+    .toggle {
+      position: relative; width: 44px; height: 24px; cursor: pointer;
+    }
+    .toggle input { opacity: 0; width: 0; height: 0; position: absolute; }
+    .track {
+      position: absolute; inset: 0; border-radius: 12px;
+      background: var(--border2);
+      transition: background 0.25s;
+    }
+    .toggle input:checked ~ .track { background: var(--accent); }
+    .thumb {
+      position: absolute; top: 3px; left: 3px;
+      width: 18px; height: 18px; border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.25);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px;
+      transition: transform 0.25s ease;
+    }
+    .toggle input:checked ~ .thumb { transform: translateX(20px); }
+
+    /* ── Page body ── */
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 24px 80px;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      text-align: center;
+      padding: 40px 0 32px;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-bg);
+      border: 1px solid var(--accent-ring);
+      border-radius: 20px;
+      padding: 4px 12px;
+      margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-size: clamp(26px, 4vw, 38px);
+      font-weight: 700;
+      letter-spacing: -0.8px;
+      line-height: 1.15;
+      color: var(--txt);
+      margin-bottom: 12px;
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+    .hero p {
+      font-size: 15px;
+      color: var(--txt2);
+      max-width: 420px;
+      margin: 0 auto;
+      line-height: 1.65;
+    }
+
+    /* ── Grid ── */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+    @media (max-width: 820px) {
+      .grid { grid-template-columns: 1fr; }
+      header { padding: 0 16px; }
+      .toggle-lbl { display: none; }
+    }
+
+    /* ── Card ── */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 22px;
+      box-shadow: var(--sh);
+      transition: background var(--ease), border-color var(--ease);
+    }
+    .card + .card { margin-top: 16px; }
+
+    .section-title {
+      font-size: 10px; font-weight: 700; letter-spacing: 1.2px;
+      text-transform: uppercase; color: var(--txt3);
+      margin-bottom: 14px;
+    }
+
+    /* ── Template chips ── */
+    .chips { display: flex; flex-wrap: wrap; gap: 7px; }
+    .chip {
+      padding: 6px 13px;
+      border-radius: var(--r-sm);
+      border: 1px solid var(--border2);
+      background: var(--card2);
+      color: var(--txt2);
+      font-size: 12.5px; font-weight: 500;
+      cursor: pointer;
+      transition: all 0.18s;
+      display: flex; align-items: center; gap: 5px;
+      font-family: inherit;
+    }
+    .chip:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-bg);
+    }
+
+    /* ── Form ── */
+    .row { margin-bottom: 14px; }
+    .row:last-child { margin-bottom: 0; }
+    .two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .three { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+
+    label {
+      display: block;
+      font-size: 12px; font-weight: 600;
+      color: var(--txt2);
+      margin-bottom: 5px;
+      letter-spacing: 0.1px;
+    }
+    label .req { color: var(--accent); }
+
+    input, textarea, select {
+      width: 100%;
+      background: var(--card2);
+      border: 1px solid var(--border2);
+      border-radius: var(--r-sm);
+      color: var(--txt);
+      font-family: 'Inter', sans-serif;
+      font-size: 13.5px;
+      padding: 9px 12px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s, background var(--ease);
+      -webkit-appearance: none;
+    }
+    input::placeholder, textarea::placeholder { color: var(--txt3); font-size: 13px; }
+    input:focus, textarea:focus, select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-ring);
+    }
+    textarea { resize: vertical; min-height: 88px; line-height: 1.6; }
+    select {
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%236b7280'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 11px center;
+      padding-right: 32px;
+    }
+
+    /* ── Btn primary ── */
+    .btn-primary {
+      width: 100%; padding: 11px;
+      background: var(--accent);
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px; font-weight: 600;
+      border: none; border-radius: var(--r-md);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 7px;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 2px 8px var(--accent-ring);
+      margin-top: 4px;
+    }
+    .btn-primary:hover:not(:disabled) {
+      background: var(--accent-h);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px var(--accent-ring);
+    }
+    .btn-primary:active { transform: scale(0.98); }
+    .btn-primary:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+
+    /* ── Btn ghost ── */
+    .btn-ghost {
+      padding: 6px 12px;
+      border-radius: var(--r-sm);
+      border: 1px solid var(--border2);
+      background: var(--card2);
+      color: var(--txt2);
+      font-family: 'Inter', sans-serif;
+      font-size: 12px; font-weight: 500;
+      cursor: pointer;
+      display: flex; align-items: center; gap: 5px;
+      transition: all 0.18s;
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-bg); }
+
+    /* ── Spinner ── */
+    .spinner {
+      display: none;
+      width: 16px; height: 16px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.65s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Error ── */
+    .err-box {
+      display: none;
+      background: var(--err-bg);
+      border: 1px solid rgba(239,68,68,0.2);
+      border-radius: var(--r-sm);
+      padding: 10px 14px;
+      margin-top: 12px;
+      font-size: 12.5px;
+      color: var(--err);
+      line-height: 1.55;
+    }
+
+    /* ── Output card ── */
+    .out-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .out-meta { display: flex; align-items: center; gap: 8px; }
+    .word-pill {
+      display: none;
+      font-size: 11px; font-weight: 600;
+      padding: 3px 9px;
+      background: var(--accent-bg);
+      color: var(--accent);
+      border: 1px solid var(--accent-ring);
+      border-radius: 20px;
+    }
+    .out-actions { display: flex; gap: 6px; }
+
+    #output {
+      background: var(--card2);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      padding: 18px;
+      min-height: 320px;
+      font-size: 13.5px;
+      line-height: 1.78;
+      color: var(--txt);
+      white-space: pre-wrap;
+      word-break: break-word;
+      transition: background var(--ease);
+    }
+    #output.empty {
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      color: var(--txt3);
+      font-style: italic;
+      gap: 8px;
+      font-size: 13px;
+    }
+    .empty-icon { font-size: 28px; opacity: 0.4; }
+
+    /* ── History ── */
+    .full-row { grid-column: 1 / -1; }
+    .divider {
+      display: flex; align-items: center; gap: 12px;
+      margin: 8px 0;
+    }
+    .divider-line { flex: 1; height: 1px; background: var(--border); }
+    .divider-txt { font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--txt3); }
+
+    .h-list { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+    .h-item {
+      display: flex; align-items: center; justify-content: space-between;
+      background: var(--card2);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      padding: 12px 16px;
+      cursor: pointer;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .h-item:hover { border-color: var(--accent); box-shadow: 0 2px 8px var(--accent-ring); }
+    .h-title { font-weight: 600; font-size: 13px; color: var(--txt); margin-bottom: 3px; }
+    .h-meta { font-size: 11.5px; color: var(--txt3); display: flex; gap: 10px; }
+    .h-del {
+      background: none; border: none; cursor: pointer;
+      color: var(--txt3); font-size: 13px; padding: 4px 7px;
+      border-radius: 6px;
+      transition: all 0.18s; flex-shrink: 0;
+      font-family: inherit;
+    }
+    .h-del:hover { background: var(--err-bg); color: var(--err); }
+
+    /* ── Toast ── */
+    #toast {
+      position: fixed; bottom: 28px; left: 50%;
+      transform: translateX(-50%) translateY(6px);
+      background: var(--card);
+      border: 1px solid var(--border2);
+      border-radius: 30px;
+      padding: 9px 20px;
+      font-size: 12.5px; font-weight: 500;
+      color: var(--txt);
+      box-shadow: var(--sh-lg);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 999;
+      transition: opacity 0.22s, transform 0.22s;
+      white-space: nowrap;
+    }
+    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-icon">✦</div>
+    CoverCraft
+  </div>
+  <div class="header-right">
+    <div class="status" id="statusEl">
+      <div class="status-dot"></div>
+      <span id="statusTxt">Checking…</span>
+    </div>
+    <div class="toggle-wrap">
+      <span class="toggle-lbl" id="themeLbl">Dark</span>
+      <label class="toggle">
+        <input type="checkbox" id="themeToggle" onchange="applyTheme(!this.checked)" />
+        <div class="track"></div>
+        <div class="thumb" id="thumbIcon">🌙</div>
+      </label>
+    </div>
+  </div>
+</header>
+
+<div class="page">
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-badge">✦ Powered by Groq · Llama 3.3 70B</div>
+    <h1>Cover letters that get<br><em>you noticed</em></h1>
+    <p>Fill in your details, pick your tone and language — your tailored letter is ready in seconds.</p>
+  </div>
+
+  <div class="grid">
+
+    <!-- LEFT -->
+    <div>
+      <!-- Templates -->
+      <div class="card">
+        <p class="section-title">Quick Templates</p>
+        <div class="chips">
+          <button class="chip" onclick="loadTemplate(0)">💻 Software Dev</button>
+          <button class="chip" onclick="loadTemplate(1)">📣 Marketing</button>
+          <button class="chip" onclick="loadTemplate(2)">📊 Accounting (Urdu)</button>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <div class="card">
+        <p class="section-title">Your Details</p>
+
+        <div class="two row">
+          <div>
+            <label>Job Title <span class="req">*</span></label>
+            <input type="text" id="jobTitle" placeholder="e.g. Frontend Developer" />
+          </div>
+          <div>
+            <label>Company <span class="req">*</span></label>
+            <input type="text" id="companyName" placeholder="e.g. Google" />
+          </div>
+        </div>
+
+        <div class="row">
+          <label>Job Description <span class="req">*</span></label>
+          <textarea id="jobDesc" placeholder="Paste the full job description here…" rows="5"></textarea>
+        </div>
+
+        <div class="row">
+          <label>Your Background <span class="req">*</span></label>
+          <textarea id="candidateBg" placeholder="Your skills, experience, education, achievements…" rows="5"></textarea>
+        </div>
+
+        <!-- Tone, Words, Language as dropdowns -->
+        <div class="three row">
+          <div>
+            <label>Tone</label>
+            <select id="tone">
+              <option value="confident">Confident</option>
+              <option value="formal">Formal</option>
+              <option value="conversational">Conversational</option>
+              <option value="enthusiastic">Enthusiastic</option>
+              <option value="humble">Humble</option>
+            </select>
+          </div>
+          <div>
+            <label>Word Count</label>
+            <select id="wordLimit">
+              <option value="100">100 words</option>
+              <option value="150">150 words</option>
+              <option value="200">200 words</option>
+              <option value="250">250 words</option>
+              <option value="300" selected>300 words</option>
+              <option value="350">350 words</option>
+              <option value="400">400 words</option>
+              <option value="500">500 words</option>
+              <option value="600">600 words</option>
+              <option value="800">800 words</option>
+            </select>
+          </div>
+          <div>
+            <label>Language</label>
+            <select id="language">
+              <option value="English">🇬🇧 English</option>
+              <option value="Urdu">🇵🇰 Urdu</option>
+              <option value="French">🇫🇷 French</option>
+              <option value="Spanish">🇪🇸 Spanish</option>
+              <option value="German">🇩🇪 German</option>
+              <option value="Arabic">🇸🇦 Arabic</option>
+              <option value="Chinese">🇨🇳 Chinese</option>
+              <option value="Turkish">🇹🇷 Turkish</option>
+              <option value="Hindi">🇮🇳 Hindi</option>
+              <option value="Portuguese">🇧🇷 Portuguese</option>
+            </select>
+          </div>
+        </div>
+
+        <button class="btn-primary" id="genBtn" onclick="generate()">
+          <span id="btnTxt">✦ Generate Cover Letter</span>
+          <div class="spinner" id="spinner"></div>
+        </button>
+
+        <div class="err-box" id="errBox"></div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Output -->
+    <div>
+      <div class="card" style="position:sticky;top:74px;">
+        <div class="out-header">
+          <p class="section-title" style="margin:0;">Generated Letter</p>
+          <div class="out-meta">
+            <span class="word-pill" id="wordPill"></span>
+            <div class="out-actions">
+              <button class="btn-ghost" onclick="copyLetter()">
+                <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="5" width="9" height="10" rx="2"/><path d="M3 11H2a1 1 0 01-1-1V2a1 1 0 011-1h8a1 1 0 011 1v2"/></svg>
+                Copy
+              </button>
+              <button class="btn-ghost" onclick="downloadLetter()">
+                <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 2v9m0 0l-3-3m3 3l3-3M2 14h12"/></svg>
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+        <div id="output" class="empty">
+          <div class="empty-icon">📄</div>
+          <span>Your letter will appear here</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="full-row">
+      <div class="divider">
+        <div class="divider-line"></div>
+        <span class="divider-txt">History</span>
+        <div class="divider-line"></div>
+      </div>
+    </div>
+
+    <!-- History -->
+    <div class="full-row">
+      <div class="card">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+          <p class="section-title" style="margin:0;">Recent Letters</p>
+          <button class="btn-ghost" onclick="loadHistory()">
+            <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 8A6 6 0 102 8"/><path d="M2 4v4h4"/></svg>
+            Refresh
+          </button>
+        </div>
+        <div class="h-list" id="hList">
+          <p style="font-size:12.5px;color:var(--txt3);text-align:center;padding:16px 0;">Loading…</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+  /* ── Theme ── */
+  function applyTheme(isDark) {
+    document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+    document.getElementById('themeToggle').checked = !isDark;
+    document.getElementById('thumbIcon').textContent = isDark ? '🌙' : '☀️';
+    document.getElementById('themeLbl').textContent = isDark ? 'Dark' : 'Light';
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  }
+  applyTheme((localStorage.getItem('theme') || 'dark') === 'dark');
+
+  /* ── Templates ── */
+  let templates = [];
+  async function fetchTemplates() {
+    try { templates = (await (await fetch('/templates')).json()).templates; } catch {}
+  }
+  function loadTemplate(i) {
+    const t = templates[i]; if (!t) return;
+    const q = t.request;
+    set('jobTitle', q.job_title); set('companyName', q.company_name);
+    set('jobDesc', q.job_description); set('candidateBg', q.candidate_background);
+    set('tone', q.tone); set('wordLimit', q.word_limit); set('language', q.language);
+    toast('Template loaded: ' + t.name);
+  }
+
+  /* ── Generate ── */
+  async function generate() {
+    const jt = get('jobTitle'), cn = get('companyName'),
+          jd = get('jobDesc'), cb = get('candidateBg');
+    if (!jt || !cn || !jd || !cb) { showErr('Please fill in all required fields.'); return; }
+    loading(true); hideErr(); clearOutput();
+    try {
+      const res = await fetch('/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          job_title: jt, company_name: cn, job_description: jd,
+          candidate_background: cb, tone: get('tone'),
+          language: get('language'), word_limit: +get('wordLimit')
+        })
+      });
+      const d = await res.json();
+      if (!res.ok || d.error) {
+        showErr((d.error || 'Something went wrong.') + (d.suggestion ? '\n\n💡 ' + d.suggestion : ''));
+      } else {
+        setOutput(d.letter);
+        const pill = document.getElementById('wordPill');
+        pill.textContent = d.word_count + ' words';
+        pill.style.display = 'inline-block';
+        loadHistory();
+      }
+    } catch(e) { showErr('Network error — is the server running?'); }
+    loading(false);
+  }
+
+  function get(id) { return document.getElementById(id).value.trim(); }
+  function set(id, val) { const el = document.getElementById(id); if (el) el.value = val; }
+
+  function loading(on) {
+    document.getElementById('genBtn').disabled = on;
+    document.getElementById('btnTxt').style.display = on ? 'none' : '';
+    document.getElementById('spinner').style.display = on ? 'block' : 'none';
+  }
+  function clearOutput() {
+    const el = document.getElementById('output');
+    el.className = 'empty';
+    el.innerHTML = '<div class="empty-icon">📄</div><span>Generating…</span>';
+  }
+  function setOutput(text) {
+    const el = document.getElementById('output');
+    el.className = ''; el.textContent = text;
+  }
+  function showErr(msg) { const b = document.getElementById('errBox'); b.textContent = msg; b.style.display = 'block'; }
+  function hideErr() { document.getElementById('errBox').style.display = 'none'; }
+
+  /* ── Copy / Save ── */
+  function copyLetter() {
+    const el = document.getElementById('output');
+    if (el.classList.contains('empty')) { toast('Nothing to copy yet.'); return; }
+    navigator.clipboard.writeText(el.textContent).then(() => toast('Copied!'));
+  }
+  function downloadLetter() {
+    const el = document.getElementById('output');
+    if (el.classList.contains('empty')) { toast('Nothing to save yet.'); return; }
+    const a = document.createElement('a');
+    a.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(el.textContent);
+    a.download = (get('jobTitle') || 'cover_letter').replace(/\s+/g,'_').toLowerCase() + '.txt';
+    a.click(); toast('Saved!');
+  }
+
+  /* ── History ── */
+  async function loadHistory() {
+    try { renderHistory((await (await fetch('/history')).json()).history || []); }
+    catch { document.getElementById('hList').innerHTML = '<p style="font-size:12.5px;color:var(--txt3);text-align:center;padding:16px 0;">Could not load history.</p>'; }
+  }
+  function renderHistory(items) {
+    const list = document.getElementById('hList');
+    if (!items.length) {
+      list.innerHTML = '<p style="font-size:12.5px;color:var(--txt3);text-align:center;padding:16px 0;">No letters yet — generate your first one!</p>';
+      return;
+    }
+    list.innerHTML = items.slice(0,10).map(h => `
+      <div class="h-item" onclick="loadFromHistory(${JSON.stringify(JSON.stringify(h))})">
+        <div>
+          <div class="h-title">${esc(h.job_title)} @ ${esc(h.company_name)}</div>
+          <div class="h-meta">
+            <span>${esc(h.tone)}</span>
+            <span>${h.word_count} words</span>
+            <span>${esc(h.language)}</span>
+            <span>${new Date(h.timestamp).toLocaleDateString()}</span>
+          </div>
+        </div>
+        <button class="h-del" onclick="event.stopPropagation();delHistory('${h.id}')">✕</button>
+      </div>`).join('');
+  }
+  function loadFromHistory(j) {
+    const h = JSON.parse(j); setOutput(h.letter);
+    const pill = document.getElementById('wordPill');
+    pill.textContent = h.word_count + ' words'; pill.style.display = 'inline-block';
+    toast('Letter loaded from history');
+  }
+  async function delHistory(id) {
+    try { await fetch('/history/'+id, {method:'DELETE'}); loadHistory(); toast('Deleted'); }
+    catch { toast('Could not delete.'); }
+  }
+
+  /* ── Status ── */
+  async function checkStatus() {
+    const el = document.getElementById('statusEl');
+    const txt = document.getElementById('statusTxt');
+    try {
+      const d = await (await fetch('/debug/verify-key')).json();
+      if (d.status === 'ok') { txt.textContent = 'Groq connected'; el.className = 'status ok'; }
+      else { txt.textContent = 'API error'; el.className = 'status err'; }
+    } catch { txt.textContent = 'Offline'; el.className = 'status err'; }
+  }
+
+  /* ── Toast ── */
+  let tmr;
+  function toast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg; t.classList.add('show');
+    clearTimeout(tmr); tmr = setTimeout(() => t.classList.remove('show'), 2500);
+  }
+  function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  fetchTemplates(); checkStatus(); loadHistory();
+</script>
+</body>
+</html>
