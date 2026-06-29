@@ -5,11 +5,21 @@
       "src": "api/index.py",
       "use": "@vercel/python",
       "config": {
-        "includeFiles": ["app/**", "public/**", "requirements.txt"]
+        "includeFiles": ["app/**", "requirements.txt"]
       }
+    },
+    {
+      "src": "public/**",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
-    { "src": "/(.*)", "dest": "/api/index.py" }
+    { "src": "/generate", "dest": "/api/index.py" },
+    { "src": "/health", "dest": "/api/index.py" },
+    { "src": "/history", "dest": "/api/index.py" },
+    { "src": "/history/(.*)", "dest": "/api/index.py" },
+    { "src": "/templates", "dest": "/api/index.py" },
+    { "src": "/debug/(.*)", "dest": "/api/index.py" },
+    { "src": "/(.*)", "dest": "/public/index.html" }
   ]
 }
