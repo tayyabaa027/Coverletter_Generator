@@ -2,6 +2,8 @@
 
 AI-powered cover letter generator built with FastAPI + Groq, deployable on Vercel.
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Visit%20App-brightgreen?style=for-the-badge&logo=vercel)](https://coverletter-generator-7kgq.vercel.app)
+
 ---
 
 ## Features
